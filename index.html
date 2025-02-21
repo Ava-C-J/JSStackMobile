@@ -1,10 +1,39 @@
 <!DOCTYPE html>
- <html>
-  <head>
-   <title>Data Collector for AGOL</title>
-  </head>
-  <body>
-   <!-- hello world text to check if everything worked -->
-   <h1>Hello World! I am ready to collect data.</h1>
-  </body>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Data Collector for AGOL</title>
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.30/"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      require(["esri/Config", "esri/Map", "esri/views/MapView"], (esriConfig, Map, MapView) => {
+        esriConfig.apiKey = "AAPT85fOqywZsicJupSmVSCGrk9gKDZ010jMpNiUcDNjaJEJgIsjfZT-hPMTlvKLBhdC1u7wUGz4NOrxkwTnncFzXLIaDmqt22H-xGF_qNWs0YTbzbC2bmjOxwFUq6h9rndpJfvGHBWItNLUMs2eHNJcsyelE7FOi07khN38z8PJNArnW2Ap10zIfmPFoh4xVWWMVGXx8-Xt84q7ZlX_kJiuQlZgZQ-pHBMCe0vT_dlWASs.AT2_RSTP1ZbY";
+        const map = new Map({
+          basemap: "satellite"
+        });
+
+        const view = new MapView({
+          container: "viewDiv", // Reference to the DOM node that will contain the view
+          map: map // References the map object
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
 </html>
