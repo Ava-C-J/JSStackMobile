@@ -65,11 +65,40 @@
         view.ui.add(searchWidget, {
           position: "bottom-right"
         });
+
+        const customSymbol = new PictureMarkerSymbol({
+          url: "path/to/your/image.png", // Replace with the path to your image
+          width: "24px",
+          height: "24px"
+        });
         // Create featurelayer from feature service 
  const layer = new FeatureLayer({ 
   // URL to the service 
-   url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_ef453adc1cab4f8abc5c4f3e943092b6_results/FeatureServer"
-
+   url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_ef453adc1cab4f8abc5c4f3e943092b6_results/FeatureServer",
+   renderer: {
+            type: "simple",
+            symbol: customSymbol
+          },
+   popupTemplate: {
+            title: "{Name}", // Field name from the feature service
+            content: [{
+              type: "fields",
+              fieldInfos: [
+                {
+                  fieldName: "Creator",
+                  label: "Creator"
+                },
+                
+                {
+                  fieldName: "CreationDate",
+                  label: "Date Spotted",
+                  format: {
+                    dateFormat: "short-date-short-time"
+                  }
+                }
+              ]
+            }]
+          }
         });
         map.add(layer);
       });
