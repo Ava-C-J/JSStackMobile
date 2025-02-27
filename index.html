@@ -19,7 +19,7 @@
   <script src="https://js.arcgis.com/4.30/"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      require(["esri/config", "esri/Map", "esri/views/MapView"], (esriconfig, Map, MapView) => {
+      require(["esri/config", "esri/Map", "esri/views/MapView", "esri/widgets/Locate", "esri/widgets/Search", "esri/layers/FeatureLayer"], (esriconfig, Map, MapView, Locate, Search, FeatureLayer) => {
         esriconfig.apiKey = "AAPT85fOqywZsicJupSmVSCGrk9gKDZ010jMpNiUcDNjaJEJgIsjfZT-hPMTlvKLBhdC1u7wUGz4NOrxkwTnncFzXLIaDmqt22H-xGF_qNWs0YTbzbC2bmjOxwFUq6h9rndpJfvGHBWItNLUMs2eHNJcsyelE7FOi07khN38z8PJNArnW2Ap10zIfmPFoh4xVWWMVGXx8-Xt84q7ZlX_kJiuQlZgZQ-pHBMCe0vT_dlWASs.AT2_RSTP1ZbY";
         const map = new Map({
           basemap: "satellite"
@@ -27,8 +27,33 @@
 
         const view = new MapView({
           container: "viewDiv", // Reference to the DOM node that will contain the view
-          map: map // References the map object
+          map: map, // References the map object
+          center: [-76.2875, 36.7682], // Longitude, Latitude for Chesapeake, Virginia
+          zoom: 15 // Adjust the zoom level as needed
         });
+        const locateBtn = new Locate({
+          view: view
+        });
+
+        // Add the locate widget to the top left corner of the view
+        view.ui.add(locateBtn, {
+          position: "top-left"
+        });
+        const searchWidget = new Search({
+          view: view
+        });
+
+        // Add the search widget to the top right corner of the view
+        view.ui.add(searchWidget, {
+          position: "top-right"
+        });
+        // Create featurelayer from feature service 
+ const layer = new FeatureLayer({ 
+  // URL to the service 
+   url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/survey123_ef453adc1cab4f8abc5c4f3e943092b6_results/FeatureServer"
+
+        });
+        map.add(layer);
       });
     });
   </script>
